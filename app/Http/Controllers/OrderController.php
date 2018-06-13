@@ -60,9 +60,6 @@ class OrderController extends Controller {
             'data' => [
                 'saved' => $saved,
                 'user'  => $user,
-//                 'user_id'   => $saved->user_id,
-//                 'username'  => $user->username,
-//                 'message'   => $saved->message,
             ]
         ];
 
