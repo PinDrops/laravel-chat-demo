@@ -39,7 +39,7 @@ socket.on("test-channel:App\\Events\\Event", function(data){
     $('#power2').text(parseInt($('#power2').text()) + parseInt(data.power));
 });
 
-socket.on("test-channel:UserSignedUp", function(data){
+socket.on("test-channel:OrderShipped", function(data){
     console.log(data);
     $('#power3').text(parseInt($('#power3').text()) + parseInt(data.power));
 });
@@ -55,7 +55,7 @@ socket.on("room:" + roomId, function(data){
 <form id="chatInputForm" action="/savemessage" method="post">
 {{ csrf_field() }}
 <input type="hidden" name="room_id" value="<?=$roomId;?>">
-<input type="text" name="message">
+<input type="text" name="message" autocomplete="off">
 <input type="submit">
 </form>
 

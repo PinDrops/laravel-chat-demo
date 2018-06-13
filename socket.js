@@ -37,8 +37,8 @@ redis.psubscribe('*', function(err, count) {
 //    console.log(err);
 });
 redis.on('pmessage', function(subscribed, channel, message) {
-    console.log( 'subscribed ' + subscribed + ' : Channel ' + channel );
     message = JSON.parse(message);
+    console.log( 'subscribed : ' + subscribed + ' , Channel : ' + channel + ' , event : ' + message.event );
     io.emit(channel + ':' + message.event, message.data);
 });
 
