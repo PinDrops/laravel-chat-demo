@@ -20,8 +20,12 @@ p {
 @section('footer')
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.dev.js"></script>
-
+<?php
+$roomId = 1;
+?>
 <script>
+
+var roomId = <?=$roomId;?>;
 
 var socket = io('http://localhost:3000');
 
@@ -40,15 +44,17 @@ socket.on("test-channel:UserSignedUp", function(data){
     $('#power3').text(parseInt($('#power3').text()) + parseInt(data.power));
 });
 
-socket.on("chatroom:1", function(data){
+socket.on("room:" + roomId, function(data){
     console.log(data);
-    $('#power4').text( $('#power4').text() + "\n" + data.message );
+    $('#power4').text( $('#power4').text() + "\n" + data.saved.message );
 });
 
 </script>
 
+
 <form id="chatInputForm" action="/savemessage" method="post">
 {{ csrf_field() }}
+<input type="hidden" name="room_id" value="<?=$roomId;?>">
 <input type="text" name="message">
 <input type="submit">
 </form>
@@ -56,11 +62,8 @@ socket.on("chatroom:1", function(data){
 
 <script type="text/javascript">
 var frm = $('#chatInputForm');
-
 frm.submit(function (e) {
-
     e.preventDefault();
-
     $.ajax({
         type: frm.attr('method'),
         url: frm.attr('action'),

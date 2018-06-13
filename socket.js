@@ -21,16 +21,20 @@ server.listen(3000, function(){
 /**/
 
 /**/
-var app         = require('express')();
-var http        = require('http').Server(app);
-var io          = require('socket.io')(http);
+var app     = require('express')();
+var http    = require('http').Server(app);
+var io      = require('socket.io')(http);
+
+
 var Redis = require('ioredis');
 var redis = new Redis();
 
 
-redis.subscribe('chatroom',     function(err, count) {});
-redis.subscribe('dead-channel', function(err, count) {});
 redis.subscribe('test-channel', function(err, count) {});
+
+redis.subscribe('room',         function(err, count) {});
+redis.subscribe('direct',       function(err, count) {});
+redis.subscribe('alert',        function(err, count) {});
 
 
 redis.on('message', function(channel, message) {

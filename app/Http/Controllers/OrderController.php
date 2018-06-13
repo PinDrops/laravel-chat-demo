@@ -21,21 +21,17 @@ class OrderController extends Controller {
 
         event( new OrderShipped( 1 ) );
 
-        $chatroomId = 1;
+        $roomId = 1;
 
         $data = [
-            'event' => $chatroomId,
+            'event' => $roomId,
             'data' => [
                 'power'     => 1,
                 'message'   => date('r'),
             ]
         ];
 
-        $ev = \Redis::publish( 'chatroom', json_encode( $data ) );
-
-        $data[ 'event' ] = 'nothing';
-
-        $ev = \Redis::publish( 'dead-channel', json_encode( $data ) );
+        $ev = \Redis::publish( 'room', json_encode( $data ) );
 
         return "event fired";
 
@@ -43,17 +39,34 @@ class OrderController extends Controller {
 
     public function saveMessage() {
 
-        $chatroomId = 1;
+        $roomId     = request()->post('room_id');
+        $message    = request()->post('message');
+
+        $saved = (object)[
+            'message_id'    => rand(1,1000),
+            'user_id'       => rand(1,1000),
+            'message'       => $message,
+            'room_id'       => $roomId,
+            'posted'        => date('r'),
+        ];
+
+        $user = (object)[
+            'user_id'       => $saved->user_id,
+            'username'      => "someone-".rand(1,1000),
+        ];
 
         $data = [
-            'event' => $chatroomId,
+            'event' => $saved->room_id,
             'data' => [
-                'power'     => 1,
-                'message'   => date('r'),
+                'saved' => $saved,
+                'user'  => $user,
+//                 'user_id'   => $saved->user_id,
+//                 'username'  => $user->username,
+//                 'message'   => $saved->message,
             ]
         ];
 
-        $ev = \Redis::publish( 'chatroom', json_encode( $data ) );
+        $ev = \Redis::publish( 'room', json_encode( $data ) );
 
         return "good";
 
