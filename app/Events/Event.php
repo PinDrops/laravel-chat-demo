@@ -10,11 +10,9 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class EventName
+class Event
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-
-    public $data;
 
     /**
      * Create a new event instance.
@@ -23,6 +21,7 @@ class EventName
      */
     public function __construct()
     {
+        //
         $this->data = array(
             'power'=> '1'
         );

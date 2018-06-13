@@ -16,12 +16,7 @@ Route::get('/', function () {
 });
 
 
-Route::get('fire', function () {
-    // this fires the event
-    $ev= event(new App\Events\EventName());
-    var_dump($ev);
-    return "event fired";
-});
+Route::get( 'fire', 'OrderController@ship' );
 
 Route::get('test', function () {
     // this checks for the event
