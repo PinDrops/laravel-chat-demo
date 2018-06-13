@@ -18,6 +18,8 @@ Route::get('/', function () {
 
 Route::get( 'fire', 'OrderController@ship' );
 
+Route::any( 'savemessage', 'OrderController@saveMessage' );
+
 Route::get('test', function () {
     // this checks for the event
     return view('test');

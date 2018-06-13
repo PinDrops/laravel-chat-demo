@@ -41,4 +41,22 @@ class OrderController extends Controller {
 
     }
 
+    public function saveMessage() {
+
+        $chatroomId = 1;
+
+        $data = [
+            'event' => $chatroomId,
+            'data' => [
+                'power'     => 1,
+                'message'   => date('r'),
+            ]
+        ];
+
+        $ev = \Redis::publish( 'chatroom', json_encode( $data ) );
+
+        return "good";
+
+    }
+
 }

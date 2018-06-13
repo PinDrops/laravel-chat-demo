@@ -47,5 +47,36 @@ socket.on("chatroom:1", function(data){
 
 </script>
 
+<form id="chatInputForm" action="/savemessage" method="post">
+{{ csrf_field() }}
+<input type="text" name="message">
+<input type="submit">
+</form>
+
+
+<script type="text/javascript">
+var frm = $('#chatInputForm');
+
+frm.submit(function (e) {
+
+    e.preventDefault();
+
+    $.ajax({
+        type: frm.attr('method'),
+        url: frm.attr('action'),
+        data: frm.serialize(),
+        success: function (data) {
+            console.log('Submission was successful.');
+            console.log(data);
+        },
+        error: function (data) {
+            console.log('An error occurred.');
+            console.log(data);
+        },
+    });
+});
+</script>
+
+
 @stop
 
