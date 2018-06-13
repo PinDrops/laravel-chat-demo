@@ -61,22 +61,33 @@ socket.on("room:" + roomId, function(data){
 
 
 <script type="text/javascript">
-var frm = $('#chatInputForm');
-frm.submit(function (e) {
+
+var chatForm     = $('#chatInputForm');
+var messageInput = $( chatForm ).find("input[name=message]");
+
+chatForm.submit(function (e) {
+
     e.preventDefault();
+
     $.ajax({
-        type: frm.attr('method'),
-        url: frm.attr('action'),
-        data: frm.serialize(),
+        type: chatForm.attr('method'),
+        url: chatForm.attr('action'),
+        data: chatForm.serialize(),
+        beforeSend: function() {
+            messageInput.prop("disabled", true);
+      	},
         success: function (data) {
-            console.log('Submission was successful.');
-            console.log(data);
+            messageInput.val("");
         },
         error: function (data) {
-            console.log('An error occurred.');
-            console.log(data);
+            // show there was a problem
         },
+        complete: function (data) {
+            messageInput.prop("disabled", false);
+        }
+    }).done(function(data){
     });
+
 });
 </script>
 
