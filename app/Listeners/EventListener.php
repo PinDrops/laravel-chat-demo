@@ -26,6 +26,10 @@ class EventListener
      */
     public function handle(Event $event)
     {
+//         dd($event);
         //
+//         $event->user->forceFill([
+//             'trial_ends_at' => $event->user->subscription()->trial_ends_at,
+//         ])->save();
     }
 }

@@ -15,11 +15,12 @@ class OrderController extends Controller {
      */
     public function ship( $orderId = 1 ) {
 
-        event( new \App\Events\Event() );
-
-        event( new \App\Events\EventName() );
-
-        event( new OrderShipped( 1 ) );
+        $ev = broadcast( new \App\Events\Event() );
+//         dd($ev);
+        $ev = broadcast( new \App\Events\EventName() );
+//         dd($ev);
+        $ev = broadcast( new OrderShipped( 1 ) );
+        dd($ev);
 
         $roomId = 1;
 

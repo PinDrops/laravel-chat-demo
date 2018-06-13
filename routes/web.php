@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 
-Route::get( 'fire', 'OrderController@ship' );
+Route::any( 'fire', 'OrderController@ship' );
 
 Route::post( 'savemessage', 'OrderController@saveMessage' );
 
